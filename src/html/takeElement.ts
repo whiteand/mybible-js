@@ -9,36 +9,26 @@ export function skipUntilElementEnd(
 ] {
   const stack = [firstNode.tagName];
   const prefix: BibleHtmlNode[] = [firstNode];
-  while (true) {
+
+  while (stack.length > 0) {
     const nodeEntry = it.next();
     if (nodeEntry.done) {
-      break;
+      throw new Error(`Not closed tags: ${stack.join(", ")}`);
     }
     const node = nodeEntry.value;
-    if (node.action === "leave") {
-      prefix.push(node);
-      const lastStack = stack.at(-1);
-      if (lastStack !== node.tagName)
-        throw new Error(`Tag mismatch: ${node.tagName}`);
-      stack.pop();
-      if (stack.length === 0) {
-        return [prefix, it];
-      }
-      continue;
-    }
+    prefix.push(node);
     if (node.action === "enter") {
-      prefix.push(node);
       stack.push(node.tagName);
       continue;
     }
-    if (node.action === "text") {
-      prefix.push(node);
-      continue;
+    if (node.action === "leave") {
+      if (stack.at(-1) !== node.tagName) {
+        throw new Error(`Tag mismatch: ${node.tagName}`);
+      }
+      stack.pop();
     }
   }
-  if (stack.length > 0) {
-    throw new Error(`Not closed tags: ${stack.join(", ")}`);
-  }
+
   return [prefix, it];
 }
 
