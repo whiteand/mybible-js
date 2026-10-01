@@ -7,6 +7,8 @@ export default defineConfig({
     emptyOutDir: true,
     outDir: "dist",
     sourcemap: true,
+    ssr: true,
+    target: "es2024",
     lib: {
       entry: [resolve(import.meta.dirname, "src/index.ts")],
       formats: ["es"],

@@ -2,3 +2,10 @@
 .github
 vite.config.js
 vitest.config.js
+coverage
+reports
+sources
+AGENTS.md
+.fallowrc.json
+.vscode
+.agents

@@ -1,26 +1,25 @@
-name: Publish
+name: Publish Package
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  id-token: write # Required for OIDC
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      id-token: write
-
     steps:
-      - uses: actions/checkout@v4
-      - uses: nubjs/setup-nub@v0
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v7
         with:
+          node-version: "26"
           registry-url: "https://registry.npmjs.org"
-          token: ${{ secrets.NPM_TOKEN }}
-      - name: Install deps
-        run: nub install
-      - name: Publish package to npm
-        run: nub publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          package-manager-cache: false # never use caching in release builds
+      - run: npm ci
+      - run: npm run prepublish
+      - run: npm publish # Or: npm stage publish

@@ -2,13 +2,12 @@
   "compilerOptions": {
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "target": "es2024",
+    "target": "esnext",
     "lib": [
-      "es2024"
+      "esnext"
     ],
     "types": [
-      "node",
-      "@nubjs/types"
+      "node"
     ],
     "moduleDetection": "force",
     "allowImportingTsExtensions": true,

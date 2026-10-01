@@ -2,14 +2,6 @@
   "name": "@whiteand/mybible",
   "version": "0.0.6",
   "type": "module",
-  "packageManager": "nub@0.7.5",
-  "devEngines": {
-    "packageManager": {
-      "name": "nub",
-      "version": "^0.7.5",
-      "onFail": "ignore"
-    }
-  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -19,23 +11,20 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "badge:fallow": "nubx fallow health --format badge > .github/badges/health.svg",
-    "badge:coverage": "nub run test:coverage && nub scripts/coverage-badge.mjs",
-    "badge": "nub run badge:fallow && nub run badge:coverage && git add .github/badges/health.svg && git commit -m 'chore: update badges'",
+    "badge:fallow": "npx fallow health --format badge > .github/badges/health.svg",
+    "badge:coverage": "npm run test:coverage && node ./scripts/coverage-badge.mjs",
+    "badge": "npm run badge:fallow && npm run badge:coverage && git add .github/badges && git commit -m 'chore: update badges'",
     "preview": "vite preview",
-    "prepublish": "nub run typecheck && nub run test && nub run build",
+    "prepublish": "npm run typecheck && npm run test && npm run build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "publish": "nub publish --access public",
-    "stryker": "stryker run",
-    "dry:publish": "nub publish --access public --dry-run"
+    "stryker": "stryker run"
   },
   "peerDependencies": {
     "better-sqlite3": ">=13.0.0 <14.0.0"
   },
   "devDependencies": {
-    "@nubjs/types": ">=0.4.13 <=0.7.5",
     "@stryker-mutator/api": "^10.0.0",
     "@stryker-mutator/core": "^10.0.0",
     "@stryker-mutator/vitest-runner": "^10.0.0",
@@ -52,6 +41,6 @@
     "quartet": "^11.0.4"
   },
   "optionalDependencies": {
-    "fallow": "^3.31.0"
+    "fallow": "^3.30.0"
   }
 }
