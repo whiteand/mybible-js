@@ -3,43 +3,37 @@ import { htmlToStream } from "./htmlToStream.ts";
 import { takeElement } from "./takeElement.ts";
 import type { BibleHtmlNode, BibleHtmlTag } from "./types.ts";
 
+const PLAIN_ACTION_DICT: Partial<
+  Record<`${BibleHtmlTag["action"]}:${BibleHtmlTag["tagName"]}`, null | string>
+> = {
+  "enter:emphasized": null,
+  "leave:emphasized": null,
+  "enter:jesus": null,
+  "leave:jesus": null,
+  "enter:small": null,
+  "leave:small": null,
+  "enter:paragraphBreak": "\n  ",
+  "leave:paragraphBreak": "\n  ",
+  "enter:indent": "\n  ",
+  "leave:indent": "\n",
+  "enter:br": "\n",
+  "leave:br": "\n",
+  "enter:inserted": "[",
+  "leave:inserted": "]",
+  "enter:subheading": "*",
+  "leave:subheading": "*",
+};
+
 function* actionToPlain(
   action: BibleHtmlTag,
 ): Generator<string, void, unknown> {
   const key: `${BibleHtmlTag["action"]}:${BibleHtmlTag["tagName"]}` = `${action.action}:${action.tagName}`;
-  switch (key) {
-    case "enter:emphasized":
-    case "leave:emphasized":
-    case "enter:jesus":
-    case "leave:jesus":
-    case "enter:small":
-    case "leave:small":
-      return;
-    case "enter:paragraphBreak":
-    case "leave:paragraphBreak":
-    case "enter:indent":
-      yield "\n  ";
-      return;
-    case "leave:indent":
-    case "enter:br":
-    case "leave:br":
-      yield "\n";
-      return;
-    case "enter:inserted":
-      yield "[";
-      return;
-    case "leave:inserted":
-      yield "]";
-      return;
-    case "enter:subheading":
-      yield "*";
-      return;
-    case "leave:subheading":
-      yield "*";
-      return;
-    default:
-      throw new Error(`Cannot handle tag: ${key}`);
+  const stringOrNull = PLAIN_ACTION_DICT[key];
+  if (stringOrNull === undefined) {
+    throw new Error(`Cannot handle tag: ${key}`);
   }
+  if (stringOrNull === null) return;
+  yield stringOrNull;
 }
 
 export function* streamToPlain(
