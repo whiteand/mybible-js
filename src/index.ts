@@ -6,6 +6,5 @@ export * from "./getBookByNumber.ts";
 export * from "./getVerse.ts";
 export * from "./getVerseBy.ts";
 export * from "./html/index.ts";
-export * from "./manifest.ts";
 export * from "./readBibleModule.ts";
 export * from "./strongLanguage.ts";
