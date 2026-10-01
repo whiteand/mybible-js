@@ -2,15 +2,72 @@ import { describe, expect, it } from "vitest";
 import { BookNumber } from "./bookNumber.ts";
 
 describe("BookNumber", () => {
-  it("numbers Genesis as the first book", () => {
+  it("uses the MyBible book numbers from ESV.SQLite3", () => {
     expect(BookNumber.Genesis).toBe(10);
-  });
-
-  it("numbers Matthew as the first New Testament book", () => {
+    expect(BookNumber.Exodus).toBe(20);
+    expect(BookNumber.Leviticus).toBe(30);
+    expect(BookNumber.Numbers).toBe(40);
+    expect(BookNumber.Deuteronomy).toBe(50);
+    expect(BookNumber.Joshua).toBe(60);
+    expect(BookNumber.Judges).toBe(70);
+    expect(BookNumber.Ruth).toBe(80);
+    expect(BookNumber.FirstSamuel).toBe(90);
+    expect(BookNumber.SecondSamuel).toBe(100);
+    expect(BookNumber.FirstKings).toBe(110);
+    expect(BookNumber.SecondKings).toBe(120);
+    expect(BookNumber.FirstChronicles).toBe(130);
+    expect(BookNumber.SecondChronicles).toBe(140);
+    expect(BookNumber.Ezra).toBe(150);
+    expect(BookNumber.Nehemiah).toBe(160);
+    expect(BookNumber.Esther).toBe(190);
+    expect(BookNumber.Job).toBe(220);
+    expect(BookNumber.Psalm).toBe(230);
+    expect(BookNumber.Proverbs).toBe(240);
+    expect(BookNumber.Ecclesiastes).toBe(250);
+    expect(BookNumber.SongOfSolomon).toBe(260);
+    expect(BookNumber.Isaiah).toBe(290);
+    expect(BookNumber.Jeremiah).toBe(300);
+    expect(BookNumber.Lamentations).toBe(310);
+    expect(BookNumber.Ezekiel).toBe(330);
+    expect(BookNumber.Daniel).toBe(340);
+    expect(BookNumber.Hosea).toBe(350);
+    expect(BookNumber.Joel).toBe(360);
+    expect(BookNumber.Amos).toBe(370);
+    expect(BookNumber.Obadiah).toBe(380);
+    expect(BookNumber.Jonah).toBe(390);
+    expect(BookNumber.Micah).toBe(400);
+    expect(BookNumber.Nahum).toBe(410);
+    expect(BookNumber.Habakkuk).toBe(420);
+    expect(BookNumber.Zephaniah).toBe(430);
+    expect(BookNumber.Haggai).toBe(440);
+    expect(BookNumber.Zechariah).toBe(450);
+    expect(BookNumber.Malachi).toBe(460);
     expect(BookNumber.Matthew).toBe(470);
-  });
-
-  it("numbers Revelation as the last book", () => {
+    expect(BookNumber.Mark).toBe(480);
+    expect(BookNumber.Luke).toBe(490);
+    expect(BookNumber.John).toBe(500);
+    expect(BookNumber.Acts).toBe(510);
+    expect(BookNumber.Romans).toBe(520);
+    expect(BookNumber.FirstCorinthians).toBe(530);
+    expect(BookNumber.SecondCorinthians).toBe(540);
+    expect(BookNumber.Galatians).toBe(550);
+    expect(BookNumber.Ephesians).toBe(560);
+    expect(BookNumber.Philippians).toBe(570);
+    expect(BookNumber.Colossians).toBe(580);
+    expect(BookNumber.FirstThessalonians).toBe(590);
+    expect(BookNumber.SecondThessalonians).toBe(600);
+    expect(BookNumber.FirstTimothy).toBe(610);
+    expect(BookNumber.SecondTimothy).toBe(620);
+    expect(BookNumber.Titus).toBe(630);
+    expect(BookNumber.Philemon).toBe(640);
+    expect(BookNumber.Hebrews).toBe(650);
+    expect(BookNumber.James).toBe(660);
+    expect(BookNumber.FirstPeter).toBe(670);
+    expect(BookNumber.SecondPeter).toBe(680);
+    expect(BookNumber.FirstJohn).toBe(690);
+    expect(BookNumber.SecondJohn).toBe(700);
+    expect(BookNumber.ThirdJohn).toBe(710);
+    expect(BookNumber.Jude).toBe(720);
     expect(BookNumber.Revelation).toBe(730);
   });
 });

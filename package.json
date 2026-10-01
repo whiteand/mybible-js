@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@nubjs/types": ">=0.4.13 <=0.7.5",
+    "@stryker-mutator/api": "^10.0.0",
     "@stryker-mutator/core": "^10.0.0",
     "@stryker-mutator/vitest-runner": "^10.0.0",
     "@types/better-sqlite3": "^9.6.0",
@@ -46,5 +47,8 @@
   "dependencies": {
     "node-html-parser": "^9.0.4",
     "quartet": "^11.0.4"
+  },
+  "optionalDependencies": {
+    "fallow": "^3.31.0"
   }
 }
