@@ -1,4 +1,5 @@
 export * from "./bibleModulePath.ts";
+export * from "./bookNumber.ts";
 export * from "./getBookBy.ts";
 export * from "./getBookByLongName.ts";
 export * from "./getBookByNumber.ts";
