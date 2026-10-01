@@ -28,13 +28,6 @@ ORDER BY bookNumber ASC;
   return statement.all();
 }
 
-function parseBoolean(value: string | undefined) {
-  if (value == null) return undefined;
-  if (value === "true") return true;
-  if (value === "false") return false;
-  throw new Error(`Unexpected value for boolean: ${JSON.stringify(value)}`);
-}
-
 function readInfo(db: Database): BibleModuleInfo {
   const statement = db.prepare<[], { name: string; value: string }>(
     `SELECT
