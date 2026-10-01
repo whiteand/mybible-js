@@ -23,6 +23,7 @@
     "prepublish": "nub run typecheck && nub run test && nub run build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "publish": "nub publish --access public",
     "stryker": "stryker run",
     "dry:publish": "nub publish --access public --dry-run"
@@ -36,6 +37,7 @@
     "@stryker-mutator/vitest-runner": "^10.0.0",
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^26",
+    "@vitest/coverage-v8": "5.0.3",
     "typescript": "6",
     "vite": "^8.3.1",
     "vite-plugin-dts": "^5.1.1",
