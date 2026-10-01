@@ -6,89 +6,39 @@ import {
   type TextNode,
 } from "node-html-parser";
 import { DEFINED_TAGS } from "./tags.ts";
-import type { BibleHtmlNode, BibleHtmlTagName } from "./types.ts";
-
-type Task =
-  | {
-      type: "visit";
-      node: Node;
-    }
-  | {
-      type: "close";
-      tagName: BibleHtmlTagName;
-    };
-
-function visitChildAndClose(
-  tasks: Task[],
-  tagName: BibleHtmlTagName,
-  childNodes: Node[],
-) {
-  tasks.unshift({
-    type: "close",
-    tagName,
-  });
-  tasks.unshift(
-    ...childNodes.map(
-      (node): Task => ({
-        type: "visit",
-        node,
-      }),
-    ),
-  );
-}
+import type { BibleHtmlNode } from "./types.ts";
 
 function* htmlElementToBibleHtmlNodeStream(
-  parsed: HTMLElement,
+  node: Node,
 ): Generator<BibleHtmlNode, void, unknown> {
-  const tasks = [{ type: "visit", node: parsed }] as Task[];
-  while (tasks.length > 0) {
-    const task = tasks.shift()!;
-
-    if (task.type === "close") {
-      yield {
-        action: "leave",
-        tagName: task.tagName,
-      };
-      continue;
-    }
-    if (task.type === "visit") {
-      const { node } = task;
-
-      if (node.nodeType === NodeType.ELEMENT_NODE) {
-        const element = node as HTMLElement;
-        if (element.tagName == null) {
-          tasks.unshift(
-            ...node.childNodes.map(
-              (node): Task => ({
-                type: "visit",
-                node,
-              }),
-            ),
-          );
-          continue;
-        }
-        const tagConfig = DEFINED_TAGS[element.tagName];
-        if (tagConfig != null) {
-          yield {
-            action: "enter",
-            tagName: tagConfig.tagName,
-          };
-          visitChildAndClose(tasks, tagConfig.tagName, element.childNodes);
-          continue;
-        }
-        console.log(node);
-        throw new Error(`Failed to element: ${element.tagName}`);
-      }
-      if (node.nodeType === NodeType.TEXT_NODE) {
-        const textNode = node as TextNode;
-        yield {
-          action: "text",
-          textContent: textNode.textContent,
-        };
-        continue;
-      }
-    }
+  if (node.nodeType === NodeType.TEXT_NODE) {
+    yield {
+      action: "text",
+      textContent: (node as TextNode).textContent,
+    };
+    return;
   }
+  if (node.nodeType !== NodeType.ELEMENT_NODE) return;
+
+  const element = node as HTMLElement;
+  if (element.tagName == null) {
+    for (const child of element.childNodes) {
+      yield* htmlElementToBibleHtmlNodeStream(child);
+    }
+    return;
+  }
+
+  const tagConfig = DEFINED_TAGS[element.tagName];
+  if (tagConfig == null) {
+    console.log(node);
+    throw new Error(`Failed to element: ${element.tagName}`);
+  }
+
+  yield { action: "enter", tagName: tagConfig.tagName };
+  for (const child of element.childNodes) {
+    yield* htmlElementToBibleHtmlNodeStream(child);
+  }
+  yield { action: "leave", tagName: tagConfig.tagName };
 }
 
 export function htmlToStream(

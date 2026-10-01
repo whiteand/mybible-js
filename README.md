@@ -1,3 +1,5 @@
+![fallow health](.github/badges/health.svg)
+
 # @whiteand/mybible
 
 Read [MyBible](https://mybible.zone) `.SQLite3` modules in Node.js: books, verses, module info, and the HTML used in verse text.
@@ -31,11 +33,11 @@ Book numbers follow the MyBible scheme (Matthew is `470`). `strongLanguageForBoo
 
 Verse `text` is a small HTML subset (emphasis, footnotes, Strong's numbers, and similar). Helpers:
 
-| Function | Result |
-| --- | --- |
-| `htmlToPlain` | Plain text |
-| `htmlToStrongIds` | Strong's numbers in the verse |
-| `htmlToStream` / `streamToHtml` | Token stream and the reverse |
+| Function                        | Result                        |
+| ------------------------------- | ----------------------------- |
+| `htmlToPlain`                   | Plain text                    |
+| `htmlToStrongIds`               | Strong's numbers in the verse |
+| `htmlToStream` / `streamToHtml` | Token stream and the reverse  |
 
 ## Lookup
 
