@@ -7,3 +7,4 @@ dist
 sources
 # stryker temp files
 .stryker-tmp
+reports
