@@ -21,7 +21,7 @@ export type BibleHtmlTagName =
   | "indent";
 
 export type BibleHtmlTag = {
-  action: "enter" | "leave";
+  action: "enter" | "leave" | "self-closed";
   tagName: BibleHtmlTagName;
 };
 

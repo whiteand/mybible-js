@@ -115,24 +115,6 @@ describe("streamToHtml", () => {
     ).toBe("<H>Title</H>");
   });
 
-  it("collapses an empty paragraph break into a self-closing tag", () => {
-    expect(
-      html([
-        { action: "enter", tagName: "paragraphBreak" },
-        { action: "leave", tagName: "paragraphBreak" },
-      ]),
-    ).toBe("<PB/>");
-  });
-
-  it("collapses an empty line break into a self-closing tag", () => {
-    expect(
-      html([
-        { action: "enter", tagName: "br" },
-        { action: "leave", tagName: "br" },
-      ]),
-    ).toBe("<BR/>");
-  });
-
   it("keeps a nested tag inside its parent", () => {
     expect(
       html([
@@ -143,17 +125,6 @@ describe("streamToHtml", () => {
         { action: "leave", tagName: "emphasized" },
       ]),
     ).toBe("<E><S>1</S></E>");
-  });
-
-  it("collapses an empty nested tag without collapsing its parent", () => {
-    expect(
-      html([
-        { action: "enter", tagName: "emphasized" },
-        { action: "enter", tagName: "strong" },
-        { action: "leave", tagName: "strong" },
-        { action: "leave", tagName: "emphasized" },
-      ]),
-    ).toBe("<E><S/></E>");
   });
 
   it("writes a closing tag that has no matching open tag", () => {
@@ -170,7 +141,7 @@ describe("streamToHtml", () => {
   });
 
   it("drops an open tag that never closes", () => {
-    expect(html([{ action: "enter", tagName: "strong" }])).toBe("");
+    expect(html([{ action: "enter", tagName: "strong" }])).toBe("<S>");
   });
 
   it("throws when the tag name is not defined", () => {

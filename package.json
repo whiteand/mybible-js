@@ -37,7 +37,6 @@
     "vitest": "^5.0.3"
   },
   "dependencies": {
-    "node-html-parser": "^9.0.4",
     "quartet": "^11.0.4"
   },
   "optionalDependencies": {

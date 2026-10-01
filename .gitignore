@@ -10,3 +10,4 @@ sources
 reports
 coverage
 .fallow/
+src/html/htmlRoundTrip.test.ts

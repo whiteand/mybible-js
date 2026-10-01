@@ -9,6 +9,9 @@ describe("isBibleModuleFilePath", () => {
   it("rejects a path that does not end in SQLite3", () => {
     expect(isBibleModuleFilePath("sources/ESV.txt")).toBe(false);
   });
+  it("works for NA", () => {
+    expect(isBibleModuleFilePath("sources/NA27ca.SQLite3")).toBe(true);
+  });
 
   it("rejects a commentary module", () => {
     expect(isBibleModuleFilePath("sources/ESV.commentaries.SQLite3")).toBe(

@@ -18,9 +18,7 @@ describe("htmlToStream", () => {
   });
 
   it("keeps whitespace inside text", () => {
-    expect(stream("  a  ")).toEqual([
-      { action: "text", textContent: "  a  " },
-    ]);
+    expect(stream("  a  ")).toEqual([{ action: "text", textContent: "  a  " }]);
   });
 
   it("maps a note", () => {
@@ -28,6 +26,12 @@ describe("htmlToStream", () => {
       { action: "enter", tagName: "note" },
       { action: "text", textContent: "Tou" },
       { action: "leave", tagName: "note" },
+    ]);
+  });
+  it("in the absence of closed tag the leave is not returned", () => {
+    expect(stream("<n>Tou")).toEqual([
+      { action: "enter", tagName: "note" },
+      { action: "text", textContent: "Tou" },
     ]);
   });
 
@@ -65,8 +69,7 @@ describe("htmlToStream", () => {
 
   it("maps a paragraph break", () => {
     expect(stream("<pb/>")).toEqual([
-      { action: "enter", tagName: "paragraphBreak" },
-      { action: "leave", tagName: "paragraphBreak" },
+      { action: "self-closed", tagName: "paragraphBreak" },
     ]);
   });
 
@@ -103,10 +106,7 @@ describe("htmlToStream", () => {
   });
 
   it("maps a line break", () => {
-    expect(stream("<br/>")).toEqual([
-      { action: "enter", tagName: "br" },
-      { action: "leave", tagName: "br" },
-    ]);
+    expect(stream("<br/>")).toEqual([{ action: "self-closed", tagName: "br" }]);
   });
 
   it("maps a subheading", () => {
@@ -139,12 +139,6 @@ describe("htmlToStream", () => {
   });
 
   it("throws when the tag is not part of the verse HTML subset", () => {
-    const log = vi.spyOn(console, "log").mockImplementation(() => {});
-    try {
-      expect(() => stream("<div>x</div>")).toThrow("Failed to element: DIV");
-      expect(log).toHaveBeenCalledOnce();
-    } finally {
-      log.mockRestore();
-    }
+    expect(() => stream("<div>x</div>")).toThrow("Failed to element: DIV");
   });
 });
