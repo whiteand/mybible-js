@@ -18,3 +18,13 @@ jobs:
       - uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: fallow-results.sarif
+      - name: Generate health badge
+        run: fallow health --format badge > badge.svg
+      - name: Publish badge
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: badges
+          keep_files: true
+          include_files: badge.svg

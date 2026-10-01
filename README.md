@@ -1,4 +1,5 @@
 ![fallow health](.github/badges/health.svg)
+![coverage](.github/badges/coverage.svg)
 
 # @whiteand/mybible
 

@@ -19,6 +19,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "badge:fallow": "nubx fallow health --format badge > .github/badges/health.svg",
+    "badge:coverage": "nub run test:coverage && nub scripts/coverage-badge.mjs",
+    "badge": "nub run badge:fallow && nub run badge:coverage && git add .github/badges/health.svg && git commit -m 'chore: update badges'",
     "preview": "vite preview",
     "prepublish": "nub run typecheck && nub run test && nub run build",
     "typecheck": "tsc --noEmit",

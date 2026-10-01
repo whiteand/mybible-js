@@ -1,3 +1,4 @@
 .fallow
 .github
 vite.config.js
+vitest.config.js
