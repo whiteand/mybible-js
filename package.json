@@ -1,6 +1,6 @@
 {
   "name": "@whiteand/mybible",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "packageManager": "nub@0.7.5",
   "devEngines": {
