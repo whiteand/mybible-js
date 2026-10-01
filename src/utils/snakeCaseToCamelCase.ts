@@ -3,7 +3,7 @@ export function snakeCaseToCamelCase(value: string): string {
   let shouldUppercase = false;
   for (const x of value) {
     if (x === "_" || x === " ") {
-      shouldUppercase = true;
+      if (res.length > 0) shouldUppercase = true;
       continue;
     }
     res += shouldUppercase ? x.toUpperCase() : x;
